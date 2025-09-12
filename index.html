@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Chá Revelação</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta property="og:title" content="Chá Revelação"/>
+  <meta property="og:description" content="Contamos com a sua presença!"/>
+  <meta property="og:image" content="assets/img/tile.png"/>
+  <meta name="theme-color" content="#e9e2d6"/>
+  <link rel="preload" as="image" href="assets/img/tile.png">
+  <link rel="stylesheet" href="assets/css/styles.css"/>
+</head>
+<body>
+  <div class="layer layer-1" aria-hidden="true"></div>
+  <div class="layer layer-2" aria-hidden="true"></div>
+  <div class="layer layer-3" aria-hidden="true"></div>
+  <header class="hero" role="banner">
+    <svg class="route" viewBox="0 0 800 300" aria-hidden="true">
+      <defs>
+        <path id="rota" d="M20,240 C240,220 420,80 780,120" />
+        <marker id="plane" markerWidth="22" markerHeight="22" refX="11" refY="11">
+          <polygon points="0,7 22,11 0,15 7,11" fill="#6B7F95"/>
+        </marker>
+      </defs>
+      <use href="#rota" class="trilha"/>
+      <path id="cursor" class="cursor" marker-end="url(#plane)"></path>
+    </svg>
+    <h1 class="title">Chá Revelação</h1>
+    <p class="subtitle">Contamos com a sua presença</p>
+  </header>
+  <section class="names" aria-label="Possíveis nomes">
+    <div class="name-card" id="nameCard" aria-live="polite">Aurora</div>
+    <div class="name-controls">
+      <button class="btn" id="prevName" aria-label="Nome anterior">◀</button>
+      <button class="btn" id="nextName" aria-label="Próximo nome">▶</button>
+    </div>
+  </section>
+  <section class="agenda" aria-labelledby="agendaTitle">
+    <h2 id="agendaTitle">Reserve na agenda:</h2>
+    <div class="chips">
+      <span class="chip">13:00</span>
+      <span class="chip">13/out</span>
+      <span class="chip">Domingo</span>
+    </div>
+    <p class="note">Traje em tons claros é bem-vindo 🌿</p>
+    <div class="actions-row">
+      <a class="btn-primary" href="assets/ics/evento.ics">Adicionar ao calendário</a>
+    </div>
+  </section>
+  <section class="local" aria-labelledby="localTitle">
+    <h2 id="localTitle">Local</h2>
+    <p class="address">
+      Recanto do Bosque — Rua das Acácias, 123, Tijucas • SC
+    </p>
+    <p class="obs"><span class="muted">Observação:</span> traga roupa de banho — teremos piscina e brincadeiras 🛟</p>
+    <div class="actions-grid">
+      <a class="medal" href="https://wa.me/554899245688?text=Olá! Quero confirmar presença no Chá Revelação." aria-label="Confirmar presença pelo WhatsApp">
+        ✅ <span>Confirmar</span>
+      </a>
+      <a class="medal" href="https://www.google.com/maps/search/?api=1&query=Recanto%20do%20Bosque%20Rua%20das%20Acácias%20123%20Tijucas%20SC" target="_blank" rel="noopener" aria-label="Abrir endereço no Google Maps">
+        📍 <span>Ver local</span>
+      </a>
+      <a class="medal" href="#presentes" aria-label="Ver lista de presentes">
+        🎁 <span>Presentes</span>
+      </a>
+    </div>
+  </section>
+  <section class="vote" aria-labelledby="voteTitle">
+    <h2 id="voteTitle">Qual origami você curte mais?</h2>
+    <div class="vote-grid">
+      <button class="vote-btn" data-team="tsuru" aria-pressed="false">🕊️ Tsuru</button>
+      <button class="vote-btn" data-team="barco" aria-pressed="false">⛵ Barquinho</button>
+    </div>
+    <div class="vote-bars" role="img" aria-label="Resultados locais">
+      <div class="bar" id="barTsuru"><span>0%</span></div>
+      <div class="bar" id="barBarco"><span>0%</span></div>
+    </div>
+    <p class="tiny muted">*Votação local neste dispositivo (sem servidor).</p>
+  </section>
+  <section id="presentes" class="gifts" aria-labelledby="giftTitle">
+    <h2 id="giftTitle">Lista de Presentes</h2>
+    <ul class="gift-list">
+      <li>Pacotes de fralda tamanho RN/P</li>
+      <li>Lenços umedecidos</li>
+      <li>Body manga curta (3–6 meses)</li>
+    </ul>
+    <div class="pix">
+      <button class="btn-outline" id="copyPix" data-key="00020126480014BR.GOV.BCB.PIX0136chave@exemplo.com5204000053039865406100.005802BR5920Família do Bebê6009Tijucas62070503***6304ABCD">Copiar PIX</button>
+      <span class="tiny" id="copyMsg" role="status" aria-live="polite"></span>
+    </div>
+  </section>
+  <footer class="footer">
+    <small>Feito com carinho • Origami & Paper-cut • GitHub Pages</small>
+  </footer>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
