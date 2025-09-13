@@ -1,99 +1,432 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Chá Revelação</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <meta property="og:title" content="Chá Revelação"/>
-  <meta property="og:description" content="Contamos com a sua presença!"/>
-  <meta property="og:image" content="assets/img/tile.png"/>
-  <meta name="theme-color" content="#e9e2d6"/>
-  <link rel="preload" as="image" href="assets/img/tile.png">
-  <link rel="stylesheet" href="assets/css/styles.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chá Revelação - Convite Especial</title>
+  <meta name="description" content="Convite online para o Chá Revelação — com confirmação de presença, agenda, localização, votação divertida e lista de presentes.">
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Chá Revelação - Convite Especial">
+  <meta property="og:description" content="Vem descobrir com a gente — leve, do nosso jeito e sem pressa. ✨">
+  <meta property="twitter:card" content="summary_large_image">
+
+  <!-- Preload da imagem crítica (mobile) -->
+  <link rel="preload" as="image" href="./img/bg-mobile-1440x2560.webp">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --brown-dark: #2A251F;
+      --brown: #3D342A;
+      --burgundy: #8B4A52;
+      --burgundy-light: #A55D65;
+      --taupe: #B8A896;
+      --taupe-light: #C4B5A4;
+      --ivory: #E8DDD4;
+      --cream: #F5F0E8;
+      --off-white: #FEFCF7;
+      --gold: #E6C368;
+      --gold-light: #F2D085;
+      --sage: #8FA693;
+      --sage-light: #A8C4A2;
+      --powder: #C7D5E0;
+      --powder-light: #D6E2EC;
+      --serif: 'Playfair Display', serif;
+      --sans: 'Inter', sans-serif;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: var(--sans);
+      color: var(--brown-dark);
+      background: #ffffff; /* base branca */
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    /* Fundo fixo */
+    .background-paper {
+      position: fixed; inset: 0;
+      background: #ffffff; /* branco por baixo */
+      z-index: -2;
+    }
+
+    /* AQUI estão as referências de imagem aplicadas (1440×2560 no mobile) */
+    .background-pattern{
+      position: fixed; inset: 0; z-index: -1;
+      background-repeat: no-repeat;
+      background-position: center bottom;  /* foca no ursinho/blocos */
+      background-size: cover;
+      background-image: image-set(
+        url("./img/bg-mobile-1440x2560.webp") type("image/webp") 1x,
+        url("./img/bg-mobile-1440x2560.jpg")  type("image/jpeg") 1x
+      );
+    }
+
+    /* Em telas maiores, troca para a versão desktop 2560×1440 */
+    @media (min-width: 900px){
+      .background-pattern{
+        background-image: image-set(
+          url("./img/bg-desktop-2560x1440.webp") type("image/webp") 1x,
+          url("./img/bg-desktop-2560x1440.jpg")  type("image/jpeg") 1x
+        );
+        background-position: center center;
+      }
+    }
+
+    /* Elementos decorativos fixos no fundo (mantidos) */
+    .bg-decoration { position: fixed; pointer-events: none; z-index: 0; opacity: 0.4; }
+    .teddy-bear {
+      width: 60px; height: 60px; background: var(--taupe-light);
+      border-radius: 50% 50% 40% 40%; position: relative; top: 15%; right: 8%;
+    }
+    .teddy-bear::before, .teddy-bear::after {
+      content: ""; position: absolute; width: 20px; height: 20px;
+      background: var(--taupe-light); border-radius: 50%; top: -8px;
+    }
+    .teddy-bear::before { left: -8px; }
+    .teddy-bear::after { right: -8px; }
+
+    .baby-blocks {
+      bottom: 20%; left: 10%; width: 40px; height: 40px;
+      background: linear-gradient(45deg, var(--powder-light), var(--sage-light));
+      border: 2px solid rgba(255, 255, 255, 0.6); border-radius: 8px; position: relative;
+    }
+    .baby-blocks::after {
+      content: ""; position: absolute; top: -35px; left: 15px; width: 35px; height: 35px;
+      background: linear-gradient(45deg, var(--sage-light), var(--powder-light));
+      border: 2px solid rgba(255, 255, 255, 0.6); border-radius: 6px;
+    }
+
+    .paper-plane {
+      top: 45%; right: 15%; width: 0; height: 0; border-style: solid;
+      border-width: 15px 0 15px 40px; border-color: transparent transparent transparent var(--gold-light);
+      transform: rotate(-10deg);
+    }
+    .origami-crane {
+      bottom: 35%; right: 12%; width: 0; height: 0; border-left: 20px solid transparent;
+      border-right: 20px solid transparent; border-bottom: 30px solid var(--burgundy-light);
+      transform: rotate(15deg);
+    }
+    .star-decoration { width: 25px; height: 25px; background: var(--gold-light);
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
+    .star-1 { top: 25%; left: 20%; opacity: 0.6; }
+    .star-2 { bottom: 40%; left: 25%; opacity: 0.5; transform: scale(0.8); }
+    .star-3 { top: 60%; right: 20%; opacity: 0.7; transform: scale(1.2); }
+
+    .main-container { position: relative; z-index: 10; background: transparent; }
+
+    .section {
+      min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+      padding: 2rem 1.5rem; position: relative; opacity: 0; transform: translateY(40px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    .section.visible { opacity: 1; transform: none; }
+    .section-content {
+      text-align: center; max-width: 420px; width: 100%; position: relative;
+      background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px);
+      border-radius: 24px; padding: 2.5rem 2rem; border: 1px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 20px 60px rgba(45, 37, 29, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+
+    .title-main {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 8vw, 4.2rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--burgundy), var(--burgundy-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      letter-spacing: -0.02em; margin-bottom: 1rem; line-height: 1.1;
+      text-shadow: 0 2px 4px rgba(139, 74, 82, 0.1);
+    }
+    .title-secondary {
+      font-family: var(--serif); font-size: clamp(1.8rem, 6vw, 2.4rem);
+      font-weight: 600; color: var(--brown); margin-bottom: 1.5rem; position: relative;
+    }
+    .title-secondary::after {
+      content: ""; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%);
+      width: 60px; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .subtitle {
+      font-size: 1.1rem; color: var(--taupe); margin-bottom: 2rem; font-weight: 400; line-height: 1.7;
+    }
+    .name-display {
+      font-family: var(--serif); font-size: clamp(3.5rem, 10vw, 5.5rem);
+      font-weight: 400; font-style: italic; margin: 2.5rem 0; opacity: 0; transform: scale(0.9);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      background: linear-gradient(135deg, var(--burgundy), var(--gold), var(--sage));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      text-shadow: 0 4px 8px rgba(139, 74, 82, 0.15);
+    }
+    .name-display.active { opacity: 1; transform: scale(1); }
+
+    .gender-indicator { font-size: 0.9rem; color: var(--taupe-light); margin-top: 0.5rem; opacity: 0.8; }
+    .micro { font-size: 0.9rem; color: var(--taupe); letter-spacing: 0.05em; margin-bottom: 0.5rem; font-weight: 500; }
+
+    .details {
+      width: 100%; max-width: 420px; margin: 1.5rem auto 0;
+      background: rgba(255, 255, 255, 0.6); border-radius: 16px; padding: 1.5rem; border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .details .row {
+      display: grid; grid-template-columns: 1fr auto; gap: 16px; padding: 14px 8px;
+      border-bottom: 1px dashed rgba(184, 168, 150, 0.3); align-items: center;
+    }
+    .details .row:last-child { border-bottom: none; }
+    .details .lab {
+      font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--taupe); font-weight: 600;
+    }
+    .details .val { font-family: var(--serif); font-size: 1.2rem; color: var(--brown); font-weight: 500; }
+
+    .location-card {
+      background: rgba(255, 255, 255, 0.7); border-radius: 20px; padding: 2.2rem; margin: 1.5rem 0;
+      border: 1px solid rgba(255, 255, 255, 0.5); box-shadow: 0 16px 50px rgba(45, 37, 29, 0.1); backdrop-filter: blur(15px);
+    }
+    .location-title { font-family: var(--serif); font-size: 1.6rem; color: var(--burgundy); margin-bottom: 0.8rem; font-weight: 600; }
+    .address { color: var(--brown); line-height: 1.7; font-size: 1.05rem; }
+    .note { margin-top: 1rem; font-size: 0.95rem; color: var(--sage); font-style: italic; }
+
+    .actions-list { width: 100%; max-width: 460px; display: flex; flex-direction: column; gap: 20px; margin-top: 1.5rem; }
+    .item {
+      display: flex; align-items: center; gap: 18px; padding: 16px 18px; border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.6); background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+      text-decoration: none; color: inherit; transition: all 0.3s ease; backdrop-filter: blur(10px);
+    }
+    .item:hover {
+      transform: translateY(-3px); box-shadow: 0 16px 45px rgba(45, 37, 29, 0.15);
+      border-color: var(--gold-light); background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+    }
+    .medal {
+      flex: 0 0 90px; width: 90px; height: 90px; border-radius: 50%; display: grid; place-items: center; position: relative;
+      background: radial-gradient(130px 130px at 35% 25%, rgba(255, 255, 255, 0.95), rgba(247, 241, 232, 0.8));
+      border: 2px solid var(--gold-light);
+      box-shadow: 0 8px 25px rgba(45, 37, 29, 0.15), inset 0 2px 8px rgba(255, 255, 255, 0.8), inset 0 -2px 4px rgba(230, 195, 104, 0.2);
+    }
+    .medal::after { content: ""; position: absolute; inset: 12px; border-radius: inherit;
+      background: radial-gradient(100px 100px at 70% 30%, rgba(255, 255, 255, 0.7), transparent 70%); }
+    .icon { position: relative; z-index: 1; color: var(--brown); font-size: 1.9rem; }
+    .icon--ok { color: var(--sage); }
+    .text { display: flex; flex-direction: column; align-items: flex-start; }
+    .t1 { font-family: var(--serif); font-weight: 600; font-size: 1.2rem; color: var(--brown); margin-bottom: 2px; }
+    .t2 { font-size: 0.9rem; color: var(--taupe); line-height: 1.4; }
+
+    .progress-dots {
+      position: fixed; right: 1.5rem; top: 50%; transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: 1rem; z-index: 100;
+    }
+    .progress-dot {
+      width: 10px; height: 10px; border-radius: 50%; background: rgba(184, 168, 150, 0.4);
+      transition: all 0.4s ease; cursor: pointer; position: relative;
+    }
+    .progress-dot::before {
+      content: ""; position: absolute; inset: -4px; border-radius: 50%;
+      background: transparent; border: 2px solid transparent; transition: border-color 0.4s ease;
+    }
+    .progress-dot.active { background: var(--burgundy); transform: scale(1.4); box-shadow: 0 0 16px rgba(139, 74, 82, 0.4); }
+    .progress-dot.active::before { border-color: rgba(139, 74, 82, 0.3); }
+
+    .scroll-indicator { position: fixed; left: 50%; bottom: 2.5rem; transform: translateX(-50%);
+      color: var(--taupe); font-size: 0.85rem; display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
+      opacity: 0.8; z-index: 10; transition: opacity 0.4s ease; }
+    .scroll-indicator.hidden { opacity: 0; }
+    .scroll-arrow { width: 24px; height: 24px; border-right: 2px solid var(--taupe); border-bottom: 2px solid var(--taupe);
+      transform: rotate(45deg); animation: bounce 2.5s infinite; }
+
+    @keyframes bounce { 0%,20%,50%,80%,100%{transform:rotate(45deg) translateY(0)} 40%{transform:rotate(45deg) translateY(-12px)} 60%{transform:rotate(45deg) translateY(-6px)} }
+  </style>
 </head>
 <body>
-  <div class="layer layer-1" aria-hidden="true"></div>
-  <div class="layer layer-2" aria-hidden="true"></div>
-  <div class="layer layer-3" aria-hidden="true"></div>
-  <header class="hero" role="banner">
-    <svg class="route" viewBox="0 0 800 300" aria-hidden="true">
-      <defs>
-        <path id="rota" d="M20,240 C240,220 420,80 780,120" />
-        <marker id="plane" markerWidth="22" markerHeight="22" refX="11" refY="11">
-          <polygon points="0,7 22,11 0,15 7,11" fill="#6B7F95"/>
-        </marker>
-      </defs>
-      <use href="#rota" class="trilha"/>
-      <path id="cursor" class="cursor" marker-end="url(#plane)"></path>
-    </svg>
-    <h1 class="title">Chá Revelação</h1>
-    <p class="subtitle">Contamos com a sua presença</p>
-  </header>
-  <section class="names" aria-label="Possíveis nomes">
-    <div class="name-card" id="nameCard" aria-live="polite">Aurora</div>
-    <div class="name-controls">
-      <button class="btn" id="prevName" aria-label="Nome anterior">◀</button>
-      <button class="btn" id="nextName" aria-label="Próximo nome">▶</button>
-    </div>
-  </section>
-  <section class="agenda" aria-labelledby="agendaTitle">
-    <h2 id="agendaTitle">Reserve na agenda:</h2>
-    <div class="chips">
-      <span class="chip">13:00</span>
-      <span class="chip">13/out</span>
-      <span class="chip">Domingo</span>
-    </div>
-    <p class="note">Traje em tons claros é bem-vindo 🌿</p>
-    <div class="actions-row">
-      <a class="btn-primary" href="assets/ics/evento.ics">Adicionar ao calendário</a>
-    </div>
-  </section>
-  <section class="local" aria-labelledby="localTitle">
-    <h2 id="localTitle">Local</h2>
-    <p class="address">
-      Recanto do Bosque — Rua das Acácias, 123, Tijucas • SC
-    </p>
-    <p class="obs"><span class="muted">Observação:</span> traga roupa de banho — teremos piscina e brincadeiras 🛟</p>
-    <div class="actions-grid">
-      <a class="medal" href="https://wa.me/554899245688?text=Olá! Quero confirmar presença no Chá Revelação." aria-label="Confirmar presença pelo WhatsApp">
-        ✅ <span>Confirmar</span>
-      </a>
-      <a class="medal" href="https://www.google.com/maps/search/?api=1&query=Recanto%20do%20Bosque%20Rua%20das%20Acácias%20123%20Tijucas%20SC" target="_blank" rel="noopener" aria-label="Abrir endereço no Google Maps">
-        📍 <span>Ver local</span>
-      </a>
-      <a class="medal" href="#presentes" aria-label="Ver lista de presentes">
-        🎁 <span>Presentes</span>
-      </a>
-    </div>
-  </section>
-  <section class="vote" aria-labelledby="voteTitle">
-    <h2 id="voteTitle">Qual origami você curte mais?</h2>
-    <div class="vote-grid">
-      <button class="vote-btn" data-team="tsuru" aria-pressed="false">🕊️ Tsuru</button>
-      <button class="vote-btn" data-team="barco" aria-pressed="false">⛵ Barquinho</button>
-    </div>
-    <div class="vote-bars" role="img" aria-label="Resultados locais">
-      <div class="bar" id="barTsuru"><span>0%</span></div>
-      <div class="bar" id="barBarco"><span>0%</span></div>
-    </div>
-    <p class="tiny muted">*Votação local neste dispositivo (sem servidor).</p>
-  </section>
-  <section id="presentes" class="gifts" aria-labelledby="giftTitle">
-    <h2 id="giftTitle">Lista de Presentes</h2>
-    <ul class="gift-list">
-      <li>Pacotes de fralda tamanho RN/P</li>
-      <li>Lenços umedecidos</li>
-      <li>Body manga curta (3–6 meses)</li>
-    </ul>
-    <div class="pix">
-      <button class="btn-outline" id="copyPix" data-key="00020126480014BR.GOV.BCB.PIX0136chave@exemplo.com5204000053039865406100.005802BR5920Família do Bebê6009Tijucas62070503***6304ABCD">Copiar PIX</button>
-      <span class="tiny" id="copyMsg" role="status" aria-live="polite"></span>
-    </div>
-  </section>
-  <footer class="footer">
-    <small>Feito com carinho • Origami & Paper-cut • GitHub Pages</small>
-  </footer>
-  <script src="assets/js/main.js"></script>
+  <!-- Fundo fixo -->
+  <div class="background-paper"></div>
+  <div class="background-pattern"></div>
+
+  <!-- Elementos decorativos fixos no fundo -->
+  <div class="bg-decoration teddy-bear"></div>
+  <div class="bg-decoration baby-blocks"></div>
+  <div class="bg-decoration paper-plane"></div>
+  <div class="bg-decoration origami-crane"></div>
+  <div class="bg-decoration star-decoration star-1"></div>
+  <div class="bg-decoration star-decoration star-2"></div>
+  <div class="bg-decoration star-decoration star-3"></div>
+
+  <!-- Container principal -->
+  <div class="main-container">
+    <!-- Capa -->
+    <section class="section" id="intro">
+      <div class="section-content">
+        <h1 class="title-main">Chá Revelação</h1>
+        <p class="subtitle">Vem descobrir com a gente — leve, do nosso jeito e sem pressa. ✨</p>
+        <div class="name-display" id="nameDisplay">Sophia</div>
+        <div class="gender-indicator" id="genderIndicator">Curiosos? Olha alguns nomes que a gente ama.</div>
+      </div>
+      
+      <div class="scroll-indicator">
+        <div class="scroll-arrow"></div>
+        <span>Role para baixo</span>
+      </div>
+    </section>
+
+    <!-- Reserve na agenda -->
+    <section class="section" id="details">
+      <div class="section-content">
+        <h2 class="title-secondary">Reserve na agenda</h2>
+        <div class="details">
+          <div class="row">
+            <span class="lab">Data</span>
+            <span class="val">21/09/2025 (Domingo)</span>
+          </div>
+          <div class="row">
+            <span class="lab">Horário</span>
+            <span class="val">15:30</span>
+          </div>
+          <div class="row">
+            <span class="lab">Traje</span>
+            <span class="val">Tons claros (off-white, marfim, sálvia, azul-acinzentado)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Local -->
+    <section class="section" id="location">
+      <div class="section-content">
+        <h2 class="title-secondary">Local</h2>
+        <div class="location-card">
+          <h3 class="location-title">Endereço</h3>
+          <p class="address">Rua Otávio Antônio Duarte, 299<br>XV de Novembro — Tijucas • SC</p>
+          <p class="note">&nbsp;</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ações / Confirmação -->
+    <section class="section" id="confirmation">
+      <div class="section-content">
+        <h2 class="title-secondary">Confirmação de Presença</h2>
+        <div class="actions-list">
+          <a href="#" class="item">
+            <div class="medal"><i class="icon fas fa-calendar-check"></i></div>
+            <div class="text">
+              <span class="t1">Confirmar presença</span>
+              <span class="t2">Mensagem: “Oi! Confirmo presença no Chá Revelação.”</span>
+            </div>
+          </a>
+          
+          <a href="#" class="item">
+            <div class="medal"><i class="icon fas fa-map-marker-alt"></i></div>
+            <div class="text">
+              <span class="t1">Ver no mapa</span>
+              <span class="t2">Abre no Google Maps</span>
+            </div>
+          </a>
+          
+          <a href="#" class="item">
+            <div class="medal"><i class="icon fas fa-gift"></i></div>
+            <div class="text">
+              <span class="t1">Lista de presentes</span>
+              <span class="t2">Se quiser mimar, deixamos algumas ideias</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Dots de navegação -->
+  <div class="progress-dots">
+    <div class="progress-dot active" data-target="intro"></div>
+    <div class="progress-dot" data-target="details"></div>
+    <div class="progress-dot" data-target="location"></div>
+    <div class="progress-dot" data-target="confirmation"></div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Nomes para alternância (mantido)
+      const names = {
+        male: ['Gabriel', 'Miguel', 'Arthur', 'Heitor', 'Bernardo', 'Theo', 'Davi', 'Lorenzo', 'Nicolas', 'Samuel'],
+        female: ['Alice', 'Sofia', 'Helena', 'Valentina', 'Laura', 'Isabella', 'Manuela', 'Julia', 'Heloisa', 'Luiza']
+      };
+      
+      let currentGender = 'female';
+      let currentNameIndex = 0;
+      
+      const nameDisplay = document.getElementById('nameDisplay');
+      const genderIndicator = document.getElementById('genderIndicator');
+      
+      function switchName() {
+        nameDisplay.classList.remove('active');
+        setTimeout(() => {
+          currentGender = currentGender === 'female' ? 'male' : 'female';
+          currentNameIndex = Math.floor(Math.random() * names[currentGender].length);
+          nameDisplay.textContent = names[currentGender][currentNameIndex];
+          
+          if (currentGender === 'male') {
+            nameDisplay.style.background = 'linear-gradient(135deg, var(--powder), var(--sage), var(--gold))';
+            nameDisplay.style.webkitBackgroundClip = 'text';
+            nameDisplay.style.webkitTextFillColor = 'transparent';
+            genderIndicator.textContent = '👶 Menino — palpites bem-vindos!';
+          } else {
+            nameDisplay.style.background = 'linear-gradient(135deg, var(--burgundy), var(--gold), var(--burgundy-light))';
+            nameDisplay.style.webkitBackgroundClip = 'text';
+            nameDisplay.style.webkitTextFillColor = 'transparent';
+            genderIndicator.textContent = '👶 Menina — palpites bem-vindos!';
+          }
+          
+          nameDisplay.classList.add('active');
+        }, 300);
+      }
+      
+      setTimeout(() => { nameDisplay.classList.add('active'); }, 800);
+      setInterval(switchName, 3000);
+      
+      const sections = document.querySelectorAll('.section');
+      const dots = document.querySelectorAll('.progress-dot');
+      const scrollIndicator = document.querySelector('.scroll-indicator');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            const currentId = entry.target.getAttribute('id');
+            dots.forEach(dot => {
+              dot.classList.remove('active');
+              if (dot.getAttribute('data-target') === currentId) dot.classList.add('active');
+            });
+            if (currentId === 'confirmation') { scrollIndicator.classList.add('hidden'); }
+            else { scrollIndicator.classList.remove('hidden'); }
+          }
+        });
+      }, { threshold: 0.6 });
+      
+      sections.forEach(section => observer.observe(section));
+      
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          const targetId = dot.getAttribute('data-target');
+          const targetSection = document.getElementById(targetId);
+          if (targetSection) targetSection.scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+      
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) targetElement.scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+    });
+  </script>
 </body>
 </html>
